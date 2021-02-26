@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:update_2k20/Log_Pages/signUp.dart';
+import 'package:update_2k20/Log_Pages/LogIn.dart';
 import 'package:update_2k20/Screens/HomeScreen.dart';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:update_2k20/SizeConfig.dart';
 
-class logInPage extends StatefulWidget {
+class signUpPage extends StatefulWidget {
   @override
-  _logInPageState createState() => _logInPageState();
+  _signUpPageState createState() => _signUpPageState();
 }
 
-class _logInPageState extends State<logInPage> {
+class _signUpPageState extends State<signUpPage> {
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     return Scaffold(
       backgroundColor: Colors.black,
       body: Container(
@@ -20,8 +22,8 @@ class _logInPageState extends State<logInPage> {
               opacity: 0.5,
               child: Image.asset(
                 "Image/Login/LogInBackground.jpeg",
-                height: MediaQuery.of(context).size.height,
-                width: MediaQuery.of(context).size.width,
+                height: SizeConfig.screenHeight,
+                width: SizeConfig.screenWidth,
                 fit: BoxFit.cover,
               ),
             ),
@@ -29,7 +31,7 @@ class _logInPageState extends State<logInPage> {
               child: Container(
                 child: Column(
                   children: [
-                    SizedBox(height: 45),
+                    SizedBox(height: SizeConfig.blockSizeVertical * 5),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
@@ -39,8 +41,11 @@ class _logInPageState extends State<logInPage> {
                           scale: 4,
                           color: Color(0xFF33cccc),
                         ),
-                        Text(
+                        AutoSizeText(
                           "PDATES 2k20",
+                          maxFontSize: 35,
+                          minFontSize: 20,
+                          maxLines: 1,
                           style: TextStyle(
                             fontSize: 35,
                             color: Colors.white,
@@ -51,69 +56,42 @@ class _logInPageState extends State<logInPage> {
                         Spacer(),
                       ],
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(
-                          left: 25, right: 25, bottom: 20, top: 40),
-                      child: TextContainer(
-                          Icon(
-                            Icons.mail,
-                            color: Colors.black45,
-                            size: 30,
-                          ),
-                          "Enter Email ID"),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(
-                          left: 25, right: 25, bottom: 20, top: 10),
-                      child: TextContainer(
-                          Icon(
-                            Icons.lock,
-                            color: Colors.black45,
-                            size: 30,
-                          ),
-                          "Enter Password"),
-                    ),
+                    SizedBox(height: SizeConfig.blockSizeVertical * 2),
+                    TextContainer(Icons.person, "Enter Name"),
+                    TextContainer(Icons.phone, "Enter Phone No"),
+                    TextContainer(Icons.mail, "Enter Email ID"),
+                    TextContainer(Icons.lock, "Enter Password"),
+                    TextContainer(Icons.alt_route_outlined, "Enter Branch"),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           AutoSizeText(
-                            "already have not account?",
+                            "already have an account?",
                             minFontSize: 20,
                             maxFontSize: 25,
-                            style: TextStyle(color: Colors.white,),
+                            style: TextStyle(color: Colors.white, fontSize: 22),
                           ),
                           GestureDetector(
                             onTap: () {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => signUpPage()),
+                                    builder: (context) => logInPage()),
                               );
                             },
                             child: Container(
                               child: AutoSizeText(
-                                "Sign In",
+                                "LogIn",
                                 minFontSize: 20,
                                 maxFontSize: 25,
-                                style: TextStyle(color: Colors.red),
+                                style:
+                                    TextStyle(color: Colors.red, fontSize: 22),
                               ),
                             ),
                           ),
                         ],
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: AutoSizeText(
-                        "Forggot Password?",
-                        minFontSize: 20,
-                        maxFontSize: 25,
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w500,
-                        ),
                       ),
                     ),
                     Padding(
@@ -137,7 +115,7 @@ class _logInPageState extends State<logInPage> {
                               color: Colors.pink,
                               borderRadius: BorderRadius.circular(30)),
                           child: Text(
-                            "LOG IN",
+                            "SIGN UP",
                             style: TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold,
@@ -156,28 +134,29 @@ class _logInPageState extends State<logInPage> {
     );
   }
 
-  Widget TextContainer(Icon i, String text) {
-    return Container(
-      height: 55,
-      decoration: BoxDecoration(
-        color: Colors.white70,
-        borderRadius: BorderRadius.circular(30),
-      ),
-      child: Row(
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(left: 20.0, right: 10),
-            child: i,
-          ),
-          Expanded(
-            child: TextField(
-              decoration: InputDecoration(
-                hintText: text,
-                border: InputBorder.none,
+  Widget TextContainer(IconData icon, String text) {
+    return Padding(
+      padding: const EdgeInsets.only(left: 25, right: 25, bottom: 20, top: 10),
+      child: Container(
+        alignment: Alignment.center,
+        padding: const EdgeInsets.only(left: 15),
+        height: 55,
+        decoration: BoxDecoration(
+          color: Colors.white70,
+          borderRadius: BorderRadius.circular(30),
+        ),
+        child: Expanded(
+          child: TextField(
+            decoration: InputDecoration(
+              hintText: text,
+              border: InputBorder.none,
+              icon: Icon(
+                icon,
+                size: 30,
               ),
             ),
           ),
-        ],
+        ),
       ),
     );
   }
